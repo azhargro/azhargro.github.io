@@ -1,0 +1,175 @@
+# -----------------------------------------------------------------------------
+# Basic Site Information (Metadata)
+# These variables define the core identity of your site and are used in headers,
+# browser tabs, and for Search Engine Optimization (SEO).
+# -----------------------------------------------------------------------------
+
+# The main title of your website. It appears in the browser tab, the site's 
+# header, and is crucial for SEO.
+title: IU Computational Pathology
+
+# A short, descriptive slogan for your site. The Chirpy theme often displays 
+# this under the main title in the site header.
+tagline: Advancing diagnostics through computational innovation
+
+# A more detailed description of your site. This is very important for SEO, as 
+# search engines often use it for the snippet in their search results. The `>-` 
+# is a YAML feature that lets you write a long string on multiple lines.
+description: >-
+  The Division of Computational Pathology at Indiana University is dedicated to advancing diagnostics through computational innovation.
+
+# The absolute URL of your website's final, live location (e.g., where it is hosted).
+# This is CRUCIAL for generating correct absolute links in sitemaps, RSS feeds,
+# and for social media sharing. 
+# **Important:** Do NOT include a trailing slash (`/`).
+url: "https://azhargro.github.io"
+
+# The subpath of your site. Leave this empty ("") if your site is at the root of
+# your domain (like https://example.com). If it's in a subfolder 
+# (like https://example.com/blog), you would set this to "/blog". Yours is correct.
+baseurl: ""
+
+
+# -----------------------------------------------------------------------------
+# Theme and Localization
+# -----------------------------------------------------------------------------
+
+# Specifies the Jekyll theme gem your site will use. This gem contains all the
+# layouts, includes, and assets that control the site's appearance.
+theme: jekyll-theme-chirpy
+
+# The primary language of your site's content. It sets the 'lang' attribute 
+# in the HTML (`<html lang="en">`), which helps browsers and search engines.
+lang: en
+
+# The timezone for your website. Jekyll uses this to correctly handle post dates
+# and times, ensuring they are published at the intended local time.
+timezone: America/Indiana/Indianapolis
+
+
+# -----------------------------------------------------------------------------
+# Content Structure and Pagination
+# -----------------------------------------------------------------------------
+
+# The number of posts to show on each paginated page (e.g., the main blog index).
+# This requires the `jekyll-paginate` plugin.
+paginate: 10
+
+# The URL structure for paginated pages. `:num` will be replaced with the page
+# number (e.g., /page2, /page3, etc.).
+paginate_path: "/page:num"
+
+# Jekyll Collections are a way to group related documents. The Chirpy theme
+# uses a collection named 'tabs' to create the main navigation links at the top
+# of the page (like "Home", "About", "Categories").
+collections:
+  tabs:
+    # Tells Jekyll to render each document in the 'tabs' collection as a
+    # standalone, individual HTML page.
+    output: true
+    # Sorts the tabs based on a front matter variable named `order` that you
+    # would add to each file in the `_tabs` folder.
+    sort_by: order
+
+
+# -----------------------------------------------------------------------------
+# Default Front Matter
+# This is a powerful feature to avoid repeating settings in every file.
+# -----------------------------------------------------------------------------
+
+defaults:
+  # This block applies default settings to a group of files.
+  - scope:
+      # Applies to all files within the root directory...
+      path: ""
+      # ...that are of the 'posts' type.
+      type: posts
+    # These key-value pairs will be automatically added to the front matter
+    # of every post.
+    values:
+      # Use the 'post.html' layout for all posts.
+      layout: post
+      # Enable the comments section on all posts by default.
+      comments: true
+      # Enable and display the Table of Contents on all posts by default.
+      toc: true
+      # Sets the URL structure for all posts. For example, a post titled "My First Post"
+      # will have the URL: /posts/my-first-post/
+      permalink: /posts/:title/
+
+  # A second block of defaults.
+  - scope:
+      # Applies to all files...
+      path: ""
+      # ...that are of the 'tabs' type (from the collection defined above).
+      type: tabs
+    # These are the default front matter values for your navigation tabs.
+    values:
+      # Use the 'page.html' layout for all tab pages.
+      layout: page
+      # Sets a simple URL structure. A tab file named 'about.md' will have the
+      # URL: /about/
+      permalink: /:title/
+
+# A specific setting for the Chirpy theme. If `true`, it globally enables the 
+# Table of Contents feature for pages and posts. This can be overridden
+# in a specific page's front matter (e.g., `toc: false`).
+toc: true
+
+
+# -----------------------------------------------------------------------------
+# Social Media and PWA (Progressive Web App) - Chirpy Theme Features
+# -----------------------------------------------------------------------------
+
+social:
+  # The name that appears next to your social links, often in the site footer.
+  name: IU Computational Pathology
+  # Your contact email address.
+  email: pathology@iu.edu
+  # A list of your social media profile URLs. The theme will display icons for these.
+  links:
+    - https://twitter.com/username
+    - https://github.com/azhargro
+
+# Settings for Progressive Web App features, which allow your site to be "installed"
+# on a user's device and work offline.
+pwa:
+  # Enables or disables PWA functionality.
+  enabled: true
+  cache:
+    # Enables caching of your site's assets for offline access.
+    enabled: true
+
+
+# -----------------------------------------------------------------------------
+# Markdown and Build Configuration
+# -----------------------------------------------------------------------------
+
+# Optional (safe to keep)
+# Settings for Kramdown, the default Markdown converter Jekyll uses.
+kramdown:
+  # The HTML character used for the link that takes you back from a footnote
+  # to its reference in the text. This is a left-pointing arrow.
+  footnote_backlink: "↩︎"
+  # Specifies 'rouge' as the engine for syntax highlighting in code blocks.
+  syntax_highlighter: rouge
+  # Specific options for the 'rouge' syntax highlighter.
+  syntax_highlighter_opts:
+    # The CSS class applied to code blocks for styling.
+    css_class: highlight
+    block:
+      # Automatically add line numbers to code blocks.
+      line_numbers: true
+      # The number at which line numbering should start.
+      start_line: 1
+
+# A list of files and folders that Jekyll should NOT include in the final
+# built site (the `_site` folder). This is for development files, source
+# control folders, and other files that don't belong on the live website.
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - README.md
+  - _config_docs.yml
