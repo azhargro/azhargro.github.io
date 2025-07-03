@@ -1,0 +1,104 @@
+# A descriptive name for your workflow, which will appear in the "Actions" tab of your GitHub repository.
+name: "Build and Deploy"
+
+# -----------------------------------------------------------------------------
+# Triggers: When to run this workflow
+# -----------------------------------------------------------------------------
+on:
+  # Run this workflow automatically every time you 'push' a change to these branches.
+  push:
+    branches:
+      - main
+      - master # Common branch names, you can remove one if you don't use it.
+
+  # This allows you to run this workflow manually from the "Actions" tab on GitHub.
+  # It's very useful for forcing a re-deploy without making a new commit.
+  workflow_dispatch:
+
+# -----------------------------------------------------------------------------
+# Permissions: What this workflow is allowed to do in your repository
+# -----------------------------------------------------------------------------
+# These permissions are required for the modern, secure way of deploying to GitHub Pages.
+permissions:
+  contents: read      # Grants permission to read your repository's code (to check it out).
+  pages: write        # Grants permission to write to the GitHub Pages deployment.
+  id-token: write     # Grants permission to use an OIDC token for secure authentication.
+
+# -----------------------------------------------------------------------------
+# Concurrency: Prevents multiple workflow runs from conflicting
+# -----------------------------------------------------------------------------
+# This ensures that if you push multiple commits quickly, only the latest one
+# will proceed to deploy. Older, in-progress runs for the same group will be canceled.
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+# -----------------------------------------------------------------------------
+# Jobs: The actual tasks the workflow will perform
+# -----------------------------------------------------------------------------
+jobs:
+  # The 'build' job is responsible for turning your Jekyll source code into a static website.
+  build:
+    runs-on: ubuntu-latest # Specifies that this job will run on a fresh virtual machine provided by GitHub, using the latest version of Ubuntu Linux.
+
+    steps: # A sequence of tasks to be executed in order.
+      # Step 1: Check out your repository's code onto the virtual machine.
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetches the entire git history, which can be useful for some Jekyll plugins.
+
+      # Step 2: Configure the environment for GitHub Pages.
+      # This action sets up necessary environment variables, like the base path for your site.
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v4
+
+      # Step 3: Set up the Ruby environment.
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.3 # Use a specific version of Ruby.
+          # This is a key optimization: it caches your gems (like Jekyll, Chirpy theme, plugins)
+          # between runs, making subsequent builds much faster.
+          bundler-cache: true
+
+      # Step 4: Build the Jekyll site for production.
+      - name: Build site
+        # 'bundle exec jekyll b' is the command to build the site.
+        # '-d "_site${{ steps.pages.outputs.base_path }}"' tells Jekyll where to put the built files.
+        # This correctly handles subdirectories for repositories like 'username.github.io/my-repo'.
+        run: bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}"
+        env:
+          # This is CRUCIAL. It tells Jekyll to build in 'production' mode,
+          # which enables optimizations like asset minification.
+          JEKYLL_ENV: "production"
+
+      # Step 5 (Optional): Test the site for broken links.
+      # I have commented this out. It's best practice, but can cause failures.
+      # To enable it, remove the '#' from the three lines below.
+      # - name: Test site
+      #   run: |
+      #     bundle exec htmlproofer _site --disable-external --ignore-urls "/^http:\/\/127.0.0.1/,/^http:\/\/0.0.0.0/,/^http:\/\/localhost/"
+
+      # Step 6: Upload the built site as an "artifact".
+      # An artifact is a file or collection of files saved from a job.
+      # The 'deploy' job below will download this artifact to publish it.
+      - name: Upload site artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "_site${{ steps.pages.outputs.base_path }}"
+
+  # The 'deploy' job takes the built site and publishes it to GitHub Pages.
+  deploy:
+    # This configures the deployment environment on GitHub.
+    # environment:
+    #   name: github-pages
+    #   url: ${{ steps.deployment.outputs.page_url }} # The URL will be set to the live site address.
+    runs-on: ubuntu-latest
+    needs: build # This job will NOT run unless the 'build' job completes successfully.
+    steps:
+      # This single step downloads the artifact from the 'build' job and pushes it to the GitHub Pages service.
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
