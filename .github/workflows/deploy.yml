@@ -92,9 +92,9 @@ jobs:
   # The 'deploy' job takes the built site and publishes it to GitHub Pages.
   deploy:
     # This configures the deployment environment on GitHub.
-    # environment:
-    #   name: github-pages
-    #   url: ${{ steps.deployment.outputs.page_url }} # The URL will be set to the live site address.
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }} # The URL will be set to the live site address.
     runs-on: ubuntu-latest
     needs: build # This job will NOT run unless the 'build' job completes successfully.
     steps:
