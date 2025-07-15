@@ -5,7 +5,7 @@ description: >-
   The Division of Computational Pathology at Indiana University is dedicated to advancing diagnostics through computational innovation.
 url: "https://azhargro.github.io"
 baseurl: ""
-
+avatar: /assets/images/indiana_university_logo.jpg
 theme: jekyll-theme-chirpy
 lang: en
 timezone: America/Indiana/Indianapolis
