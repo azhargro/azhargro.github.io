@@ -7,7 +7,7 @@
 # The main title of your website. It appears in the browser tab, the site's 
 # header, and is crucial for SEO.
 title: IU Computational Pathology
-
+avatar: /assets/images/indiana_university_logo.jpg
 # A short, descriptive slogan for your site. The Chirpy theme often displays 
 # this under the main title in the site header.
 tagline: Advancing diagnostics through computational innovation
