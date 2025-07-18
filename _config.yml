@@ -58,7 +58,7 @@ paginate: 10
 # The URL structure for paginated pages. `:num` will be replaced with the page
 # number (e.g., /page2, /page3, etc.).
 paginate_path: "/page:num"
-avatar: /assets/images/151208552.png
+avatar: /assets/images/assets/images/Indiana-University-Logo.png
 
 # Jekyll Collections are a way to group related documents. The Chirpy theme
 # uses a collection named 'tabs' to create the main navigation links at the top
