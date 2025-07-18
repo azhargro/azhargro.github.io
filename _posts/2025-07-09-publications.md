@@ -11,7 +11,7 @@ permalink: /posts/ai-that-learns-without-borders/
 ![AI That Learns Without Borders — pathologist reviewing slides](https://medicine.iu.edu/magazine/issues/winter-2025/ai-that-learns-without-borders)
 
 ## AI That Learns Without Borders
-
+![alt text](<Federated learning bakas 16x9.webp>)
 Decentralized approaches to AI make it easier for scientists to share data, protect sensitive data, and develop tools that reflect the diversity of patients.
 
 In a pathologist's office, local clinicians and researchers are working hand-in-hand to build artificial intelligence that learns locally—but can be applied globally. Instead of pooling sensitive patient data across borders, this model allows machine learning to happen within each clinic, preserving data privacy while enabling inclusive, diverse training across regions.:contentReference[oaicite:2]{index=2}
